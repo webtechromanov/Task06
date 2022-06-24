@@ -8,6 +8,7 @@ public class HealthBar : MonoBehaviour
 {
     [SerializeField] private Player _player;
     [SerializeField] private Slider _slider;
+
     private void OnEnable()
     {
         _player.HealthChanged += OnHealthChanged;
@@ -21,6 +22,6 @@ public class HealthBar : MonoBehaviour
 
     private void OnHealthChanged(float value)
     {
-        _slider.DOValue(value / _player.Health, 1f);
+        _slider.DOValue(value / _player.MaxHealth, 1f);
     }
 }

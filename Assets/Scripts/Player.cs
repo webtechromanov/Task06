@@ -5,26 +5,23 @@ using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private float _health = 100;
+    [SerializeField] private float _maxHealth = 100;
 
     private float _currentHealth;
     private float _minHealthAmount = 0;
 
     public event UnityAction<float> HealthChanged;
 
-    public float Health => _health;
+    public float MaxHealth => _maxHealth;
 
     private void Start()
     {
-        _currentHealth = _health;
+        _currentHealth = _maxHealth;
     }
 
     public void ApplyHealOrDamage(float value)
     {
-        if (_currentHealth + value >= _minHealthAmount && _currentHealth + value <= _health)
-        {
-            _currentHealth += value;
-            HealthChanged?.Invoke(_currentHealth);
-        }
+        _currentHealth = Mathf.Clamp(_currentHealth + value, _minHealthAmount, _maxHealth);
+        HealthChanged?.Invoke(_currentHealth);
     }
 }
